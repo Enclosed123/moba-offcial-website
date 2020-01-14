@@ -4,15 +4,11 @@
 
     <el-form ref="form" label-width="120px" @submit.native.prevent="save">
       <el-form-item label="上级分类">
-        <el-select v-model="model.parent" placeholder="请选择活动区域">
-          <el-option label="区域一" value="shanghai"></el-option>
+        <el-select v-model="model.parent" placeholder="请选择">
+          <el-option v-for="(item, index) in parents" :key="index" :label="item.name" :value="item._id"></el-option>
         </el-select>
       </el-form-item>
 
-<<<<<<< HEAD
-=======
-    <el-form ref="form"  label-width="120px" @submit.native.prevent="save">
->>>>>>> 438a8d80abb24e0e21dc0836dcd8bbf9ee7b7c5c
       <el-form-item label="名称">
         <el-input v-model="model.name"></el-input>
       </el-form-item>
@@ -26,10 +22,10 @@
 export default {
   data() {
     return {
-      model: {}
+      model: {},
+      parents: []
     };
   },
-<<<<<<< HEAD
   props: {
     id: {}
   },
@@ -38,11 +34,11 @@ export default {
     async save() {
       let res;
       if (this.id) {
-        await this.$http.put(`categories/${this.id}`, this.model);
+        await this.$http.put(`rest/categories/${this.id}`, this.model);
       } else {
-        await this.$http.post("categories", this.model);
+        await this.$http.post("rest/categories", this.model);
       }
-      this.$router.push("/categories/list");
+      this.$router.push("rest/categories/list");
       this.$message({
         type: "success",
         message: "保存成功"
@@ -51,26 +47,17 @@ export default {
     },
     // 数据更新
     async fetch() {
-      const res = await this.$http.get(`categories/${this.id}`);
+      const res = await this.$http.get(`rest/categories/${this.id}`);
       this.model = res.data;
-=======
-  methods:{
-    async save(){
-      // console.log(this.model);
-      
-      const res = await this.$http.post("categories",this.model)
-      this.$router.push("/categories/list")
-      this.$message({
-        type:"success",
-        message:"保存成功"
-      })
-      console.log(res);
-      
->>>>>>> 438a8d80abb24e0e21dc0836dcd8bbf9ee7b7c5c
-    }
+    },
+    async fetchParents() {
+      const res = await this.$http.get(`rest/categories`);
+      this.parents = res.data;
+    },
   },
   created() {
     this.id && this.fetch();
+    this.fetchParents();
   }
 };
 </script>

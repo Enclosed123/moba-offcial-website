@@ -3,9 +3,10 @@
   <div class>
     <h1>分类列表</h1>
     <el-table :data="items">
-      <el-table-column prop="_id" label="ID" width="340"></el-table-column>
+      <el-table-column prop="_id" label="ID"></el-table-column>
+      <el-table-column prop="parent.name" label="上级分类"></el-table-column>
       <el-table-column prop="name" label="分类名称"></el-table-column>
-      <el-table-column fixed="right" label="操作" width="190">
+      <el-table-column label="操作" width="200">
         <template slot-scope="scope">
           <el-button @click="edit(scope.row._id)" type="primary" size="big">编辑</el-button>
           <el-button @click="remove(scope.row)" type="primary" size="big">删除</el-button>
@@ -28,12 +29,12 @@ export default {
   computed: {},
   methods: {
     async fetch() {
-      const res = await this.$http.get("categories");
+      const res = await this.$http.get("rest/categories");
       this.items = res.data;
     },
     // 编辑键跳转
     edit(row) {
-      this.$router.push("/categories/edit/" + row);
+      this.$router.push("rest/categories/edit/" + row);
     },
     // 删除键
     
@@ -43,7 +44,7 @@ export default {
         cancelButtonText:"取消",
         type:"warning"
       }).then(async ()=>{
-        const res = await this.$http.delete(`categories/${row._id}`);
+        const res = await this.$http.delete(`rest/categories/${row._id}`);
         console.log(res);
         this.$message({
           type:"success",

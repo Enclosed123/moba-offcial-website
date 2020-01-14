@@ -13,10 +13,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Main.vue'),
     children: [
       { path: "/categories/create", component: CategoriesEdit },
-<<<<<<< HEAD
       { path: "/categories/edit/:id", component: CategoriesEdit,props:true },
-=======
->>>>>>> 438a8d80abb24e0e21dc0836dcd8bbf9ee7b7c5c
       { path: "/categories/list", component: CategoriesList }
 
     ]
