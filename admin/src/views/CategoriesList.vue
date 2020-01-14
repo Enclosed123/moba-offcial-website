@@ -8,9 +8,8 @@
       <el-table-column prop="name" label="分类名称"></el-table-column>
       <el-table-column label="操作" width="200">
         <template slot-scope="scope">
-          <el-button @click="edit(scope.row._id)" type="primary" size="big">编辑</el-button>
+          <el-button @click="$router.push(`/categories/edit/${scope.row._id}`)" type="primary" size="big">编辑</el-button>
           <el-button @click="remove(scope.row)" type="primary" size="big">删除</el-button>
-
         </template>
       </el-table-column>
     </el-table>
@@ -32,10 +31,10 @@ export default {
       const res = await this.$http.get("rest/categories");
       this.items = res.data;
     },
-    // 编辑键跳转
-    edit(row) {
-      this.$router.push("rest/categories/edit/" + row);
-    },
+    // // 编辑键跳转
+    // edit(row) {
+    //   this.$router.push(`rest/${row}`);
+    // },
     // 删除键
     
     async remove(row){

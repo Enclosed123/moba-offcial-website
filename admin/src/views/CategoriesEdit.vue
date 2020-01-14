@@ -34,11 +34,11 @@ export default {
     async save() {
       let res;
       if (this.id) {
-        await this.$http.put(`rest/categories/${this.id}`, this.model);
+        await this.$http.put(`rest/categories/${this.id}`,this.model);
       } else {
-        await this.$http.post("rest/categories", this.model);
+        await this.$http.post("rest/categories",this.model);
       }
-      this.$router.push("rest/categories/list");
+      this.$router.push("/categories/list");
       this.$message({
         type: "success",
         message: "保存成功"
